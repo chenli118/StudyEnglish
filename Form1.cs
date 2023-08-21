@@ -72,6 +72,9 @@ namespace StudyEnglish
         private void Uc_Vocabulary_WordStatusChanged(object? sender, EventArgs e)
         {
             LoadData();
+            if(currentPageIndex== wizardPages.Length-1)   ShowWizardPage(0); 
+            else
+                ShowWizardPage(currentPageIndex + 1);
         }
 
         private List<Vocabulary> LoadData()

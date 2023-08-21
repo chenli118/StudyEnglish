@@ -62,7 +62,8 @@ namespace StudyEnglish
 
                     var command = connection.CreateCommand();
                     command.CommandText = $" insert into  StudyLog(Word,StudyTime,Status) values " +
-                                          $" ('{Word}','{DateTime.Now}',1)";
+                                          $" (@Word,'{DateTime.Now}',1)";
+                    command.Parameters.AddWithValue("@Word", Word);
                     int exec = command.ExecuteNonQuery();
                     if (exec > 0)
                     {
@@ -86,7 +87,8 @@ namespace StudyEnglish
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from Top5000Vocabulary where Word  like '%{txtSearch.Text}%'";
+                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from Top5000Vocabulary where Word  like @skey ";
+                command.Parameters.AddWithValue("@skey", "%"+skey+"%");
                 using (var reader = command.ExecuteReader())
                 {
                     txtWordContent.Clear();
