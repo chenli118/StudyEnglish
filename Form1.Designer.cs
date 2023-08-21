@@ -34,13 +34,11 @@
             pnlMain = new Panel();
             panel1 = new Panel();
             panel2 = new Panel();
+            panel3 = new Panel();
             panel4 = new Panel();
             panel5 = new Panel();
-            panel3 = new Panel();
-            
             pnlTop.SuspendLayout();
             pnlMain.SuspendLayout();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTop
@@ -50,12 +48,12 @@
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(800, 98);
+            pnlTop.Size = new Size(800, 61);
             pnlTop.TabIndex = 0;
             // 
             // buttonPrevious
             // 
-            buttonPrevious.Location = new Point(548, 31);
+            buttonPrevious.Location = new Point(549, 12);
             buttonPrevious.Name = "buttonPrevious";
             buttonPrevious.Size = new Size(94, 49);
             buttonPrevious.TabIndex = 1;
@@ -65,9 +63,9 @@
             // 
             // buttonNext
             // 
-            buttonNext.Location = new Point(115, 31);
+            buttonNext.Location = new Point(114, 12);
             buttonNext.Name = "buttonNext";
-            buttonNext.Size = new Size(94, 49);
+            buttonNext.Size = new Size(78, 49);
             buttonNext.TabIndex = 0;
             buttonNext.Text = "下一个";
             buttonNext.UseVisualStyleBackColor = true;
@@ -81,18 +79,17 @@
             pnlMain.Controls.Add(panel4);
             pnlMain.Controls.Add(panel5);
             pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 98);
+            pnlMain.Location = new Point(0, 61);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(800, 352);
+            pnlMain.Size = new Size(800, 389);
             pnlMain.TabIndex = 1;
             // 
             // panel1
             // 
-           
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 352);
+            panel1.Size = new Size(800, 389);
             panel1.TabIndex = 0;
             panel1.Visible = false;
             // 
@@ -101,16 +98,25 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(800, 352);
+            panel2.Size = new Size(800, 389);
             panel2.TabIndex = 1;
             panel2.Visible = false;
+            // 
+            // panel3
+            // 
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(800, 389);
+            panel3.TabIndex = 1;
+            panel3.Visible = false;
             // 
             // panel4
             // 
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(800, 352);
+            panel4.Size = new Size(800, 389);
             panel4.TabIndex = 1;
             panel4.Visible = false;
             // 
@@ -119,19 +125,9 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(800, 352);
+            panel5.Size = new Size(800, 389);
             panel5.TabIndex = 1;
             panel5.Visible = false;
-            // 
-            // panel3
-            // 
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(8, 8);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(250, 125);
-            panel3.TabIndex = 1;
-            panel3.Visible = false;
-            
             // 
             // Form1
             // 
@@ -141,10 +137,9 @@
             Controls.Add(pnlMain);
             Controls.Add(pnlTop);
             Name = "Form1";
-            Text = "Form1";
+            Text = "个人单词本";
             pnlTop.ResumeLayout(false);
             pnlMain.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -158,6 +153,6 @@
         private Panel panel5;
         private Panel panel1;
         private Button buttonPrevious;
-        private Button buttonNext; 
+        private Button buttonNext;
     }
 }

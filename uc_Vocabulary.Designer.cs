@@ -42,6 +42,10 @@
             btnMemo = new Button();
             txtMemo = new RichTextBox();
             panel3 = new Panel();
+            panel4 = new Panel();
+            btnSearch = new Button();
+            txtSearch = new TextBox();
+            button2 = new Button();
             button1 = new Button();
             lblWord = new Label();
             panel1.SuspendLayout();
@@ -49,6 +53,7 @@
             tableLayoutPanel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -122,7 +127,7 @@
             txtWordContent.Dock = DockStyle.Fill;
             txtWordContent.Location = new Point(3, 3);
             txtWordContent.Name = "txtWordContent";
-            txtWordContent.Size = new Size(706, 370);
+            txtWordContent.Size = new Size(701, 370);
             txtWordContent.TabIndex = 1;
             txtWordContent.Text = "";
             // 
@@ -137,9 +142,10 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
             tableLayoutPanel1.Controls.Add(panel2, 1, 1);
             tableLayoutPanel1.Controls.Add(txtWordContent, 0, 0);
             tableLayoutPanel1.Controls.Add(txtMemo, 1, 0);
@@ -157,15 +163,14 @@
             // 
             panel2.Controls.Add(btnMemo);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(715, 379);
+            panel2.Location = new Point(710, 379);
             panel2.Name = "panel2";
             panel2.Size = new Size(94, 46);
             panel2.TabIndex = 0;
             // 
             // btnMemo
             // 
-            btnMemo.Anchor = AnchorStyles.None;
-            btnMemo.Location = new Point(1, 14);
+            btnMemo.Location = new Point(0, 5);
             btnMemo.Name = "btnMemo";
             btnMemo.Size = new Size(94, 29);
             btnMemo.TabIndex = 0;
@@ -176,7 +181,7 @@
             // txtMemo
             // 
             txtMemo.Dock = DockStyle.Fill;
-            txtMemo.Location = new Point(715, 3);
+            txtMemo.Location = new Point(710, 3);
             txtMemo.Name = "txtMemo";
             txtMemo.Size = new Size(94, 370);
             txtMemo.TabIndex = 1;
@@ -184,30 +189,74 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(panel4);
+            panel3.Controls.Add(button2);
             panel3.Controls.Add(button1);
             panel3.Controls.Add(lblWord);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 379);
             panel3.Name = "panel3";
-            panel3.Size = new Size(706, 46);
+            panel3.Size = new Size(701, 46);
             panel3.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(btnSearch);
+            panel4.Controls.Add(txtSearch);
+            panel4.Dock = DockStyle.Right;
+            panel4.Location = new Point(390, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(311, 46);
+            panel4.TabIndex = 3;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSearch.Location = new Point(188, 6);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(56, 29);
+            btnSearch.TabIndex = 4;
+            btnSearch.Text = "搜索";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(45, 8);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(125, 27);
+            txtSearch.TabIndex = 3;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button2.Location = new Point(150, 7);
+            button2.Name = "button2";
+            button2.Size = new Size(118, 29);
+            button2.TabIndex = 2;
+            button2.Text = "记住了";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
-            button1.Location = new Point(477, 10);
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.Location = new Point(266, 5);
             button1.Name = "button1";
-            button1.Size = new Size(162, 29);
+            button1.Size = new Size(118, 29);
             button1.TabIndex = 1;
-            button1.Text = "显示单词中文";
+            button1.Text = "不记得了";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // lblWord
             // 
             lblWord.AutoSize = true;
-            lblWord.Location = new Point(17, 14);
+            lblWord.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblWord.ForeColor = SystemColors.Highlight;
+            lblWord.Location = new Point(23, 9);
             lblWord.Name = "lblWord";
-            lblWord.Size = new Size(0, 20);
+            lblWord.Size = new Size(0, 27);
             lblWord.TabIndex = 0;
             // 
             // uc_Vocabulary
@@ -225,6 +274,8 @@
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -246,5 +297,9 @@
         private Panel panel3;
         private Button button1;
         private Label lblWord;
+        private Button button2;
+        private Button btnSearch;
+        private TextBox txtSearch;
+        private Panel panel4;
     }
 }

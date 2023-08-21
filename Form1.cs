@@ -8,7 +8,8 @@ namespace StudyEnglish
     {
         private Panel[] wizardPages;
         private int currentPageIndex = 0;
-        DataTable dtVocabulary = null;
+        List<Vocabulary> vocabularyList;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,30 +22,35 @@ namespace StudyEnglish
             uc_Vocabulary1.Dock = DockStyle.Fill;
             uc_Vocabulary1.Location = new Point(0, 0);
             uc_Vocabulary1.Name = "uc_Vocabulary1";
+            uc_Vocabulary1.WordStatusChanged += Uc_Vocabulary_WordStatusChanged;
             panel1.Controls.Add(uc_Vocabulary1);
 
             uc_Vocabulary uc_Vocabulary2 = new uc_Vocabulary();
             uc_Vocabulary2.Dock = DockStyle.Fill;
             uc_Vocabulary2.Location = new Point(0, 0);
             uc_Vocabulary2.Name = "uc_Vocabulary2";
+            uc_Vocabulary2.WordStatusChanged += Uc_Vocabulary_WordStatusChanged;
             panel2.Controls.Add(uc_Vocabulary2);
 
             uc_Vocabulary uc_Vocabulary3 = new uc_Vocabulary();
             uc_Vocabulary3.Dock = DockStyle.Fill;
             uc_Vocabulary3.Location = new Point(0, 0);
             uc_Vocabulary3.Name = "uc_Vocabulary3";
+            uc_Vocabulary3.WordStatusChanged += Uc_Vocabulary_WordStatusChanged;
             panel3.Controls.Add(uc_Vocabulary3);
 
             uc_Vocabulary uc_Vocabulary4 = new uc_Vocabulary();
             uc_Vocabulary4.Dock = DockStyle.Fill;
             uc_Vocabulary4.Location = new Point(0, 0);
             uc_Vocabulary4.Name = "uc_Vocabulary4";
+            uc_Vocabulary4.WordStatusChanged += Uc_Vocabulary_WordStatusChanged;
             panel4.Controls.Add(uc_Vocabulary4);
 
             uc_Vocabulary uc_Vocabulary5 = new uc_Vocabulary();
             uc_Vocabulary5.Dock = DockStyle.Fill;
             uc_Vocabulary5.Location = new Point(0, 0);
             uc_Vocabulary5.Name = "uc_Vocabulary5";
+            uc_Vocabulary5.WordStatusChanged += Uc_Vocabulary_WordStatusChanged;
             panel5.Controls.Add(uc_Vocabulary5);
 
             wizardPages = new Panel[]
@@ -58,56 +64,74 @@ namespace StudyEnglish
             };
             try
             {
-                dtVocabulary = LoadData();
+                vocabularyList = LoadData();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private DataTable LoadData()
+        private void Uc_Vocabulary_WordStatusChanged(object? sender, EventArgs e)
         {
-            DataTable dataTable = new DataTable();
+            LoadData();
+        }
+
+        private List<Vocabulary> LoadData()
+        {
             using (var connection = new SqliteConnection("Data Source=data.sqlite"))
             {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @"select 	* from Top5000Vocabulary order by rank LIMIT 0,5     ";
-                //command.Parameters.AddWithValue("$id", id);
+                command.CommandText = @" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from Top5000Vocabulary where Word not in(SELECT Word from StudyLog) ORDER by rank LIMIT 0,5 ";
 
                 using (var reader = command.ExecuteReader())
                 {
-                    dataTable.Load(reader);
+                    vocabularyList = new List<Vocabulary>();
+                    while (reader.Read())
+                    {
+                        var vb = new Vocabulary();
+                        vb.Rank = reader.GetInt32(0);
+                        vb.Word = reader.GetString(1);
+                        vb.WordContent = reader.GetString(2);
+                        vb.Leve = reader.GetString(3);
+                        vb.Priority = reader.GetValue(4) == DBNull.Value ? 5 : reader.GetInt32(4);
+                        vb.Repetition = reader.GetValue(5) == DBNull.Value ? null : reader.GetString(5);
+                        vb.LastTimestamp = reader.GetValue(6) == DBNull.Value ? null : reader.GetString(6);
+                        vb.Status = reader.GetValue(7) == DBNull.Value ? null : reader.GetString(7);
+                        vb.Memo = reader.GetValue(8) == DBNull.Value ? null : reader.GetString(8);
+                        vocabularyList.Add(vb);
+                    }
                     reader.Close();
                 }
             }
-            return dataTable;
+            return vocabularyList;
         }
 
         private void ShowWizardPage(int index)
         {
-            if (dtVocabulary != null && dtVocabulary.Rows.Count > currentPageIndex)
+            if (vocabularyList != null && vocabularyList.Count > index)
             {
-                DataRow dr = dtVocabulary.Rows[currentPageIndex];
+                var vb = vocabularyList[index];
                 for (int i = 0; i < wizardPages.Length; i++)
-                { 
+                {
                     if (index != i)
                     {
                         uc_Vocabulary uc1 = wizardPages[i].Controls[0] as uc_Vocabulary;
                         wizardPages[i].Visible = false;
                         uc1.ClearText();
-                    } 
+                    }
                 }
                 wizardPages[index].Visible = true;
                 uc_Vocabulary uc = wizardPages[index].Controls[0] as uc_Vocabulary;
-                uc.Word = dr["Word"].ToString();
-                uc.WordContent = dr["WordContent"].ToString();
-                uc.WordDic = dr["Leve"].ToString();
-                uc.WordHot = dr["Priority"].ToString();
-                uc.WordMemo = dr["Memo"].ToString();
-                uc.WordRank = dr["Rank"].ToString();
-                uc.LoadData(); 
-            } 
-            currentPageIndex = index; 
+                uc.Word = vb.Word;
+                uc.WordContent = vb.WordContent;
+                uc.WordDic = vb.Leve;
+                uc.WordHot = vb.Priority.ToString();
+                uc.WordMemo = vb.Memo;
+                uc.WordRank = vb.Rank.ToString();
+                uc.SearchKey = vb.Word;
+                uc.LoadData();
+            }
+            currentPageIndex = index;
             UpdateNavigationButtons();
         }
         private void UpdateNavigationButtons()
