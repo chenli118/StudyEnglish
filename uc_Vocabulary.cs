@@ -34,7 +34,7 @@ namespace StudyEnglish
             if (WordRank != null) { lblRank.Text = WordRank; }
             if (WordDic != null) { lblDIC.Text = WordDic; }
             if (WordHot != null) { lblHot.Text = WordHot; }
-            if (SearchKey != null) { txtSearch.Text = SearchKey; } 
+            if (SearchKey != null) { txtSearch.Text = SearchKey; }
             if (WordMemo != null) { txtMemo.Text = WordMemo; }
         }
 
@@ -63,7 +63,7 @@ namespace StudyEnglish
                     {
                         var vb = this.Tag as Vocabulary;
                         vb.Memo = txtMemo.Text.Trim();
-                        MessageBox.Show("备注添加成功！","添加备注",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show("备注添加成功！", "添加备注", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -109,18 +109,23 @@ namespace StudyEnglish
 
                 var command = connection.CreateCommand();
                 command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from {TableName} where Word  like @skey ";
-                command.Parameters.AddWithValue("@skey", "%"+skey+"%");
+                command.Parameters.AddWithValue("@skey", "%" + skey + "%");
                 using (var reader = command.ExecuteReader())
                 {
                     txtWordContent.Clear();
                     while (reader.Read())
                     {
-                        txtWordContent.Text +=   reader.GetString(1) + " : " + reader.GetString(2);
+                        txtWordContent.Text += reader.GetString(1) + " : " + reader.GetString(2);
                         txtWordContent.Text += System.Environment.NewLine;
                     }
                     reader.Close();
                 }
             }
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

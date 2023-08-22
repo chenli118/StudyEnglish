@@ -204,15 +204,15 @@
             panel4.Controls.Add(btnSearch);
             panel4.Controls.Add(txtSearch);
             panel4.Dock = DockStyle.Right;
-            panel4.Location = new Point(390, 0);
+            panel4.Location = new Point(487, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(311, 46);
+            panel4.Size = new Size(214, 46);
             panel4.TabIndex = 3;
             // 
             // btnSearch
             // 
             btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSearch.Location = new Point(188, 6);
+            btnSearch.Location = new Point(155, 5);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(56, 29);
             btnSearch.TabIndex = 4;
@@ -222,17 +222,18 @@
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(45, 8);
+            txtSearch.Location = new Point(3, 5);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(125, 27);
+            txtSearch.Size = new Size(148, 27);
             txtSearch.TabIndex = 3;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // button2
             // 
             button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(150, 7);
+            button2.Location = new Point(322, 5);
             button2.Name = "button2";
-            button2.Size = new Size(118, 29);
+            button2.Size = new Size(78, 29);
             button2.TabIndex = 2;
             button2.Text = "记住了";
             button2.UseVisualStyleBackColor = true;
@@ -241,9 +242,9 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(266, 5);
+            button1.Location = new Point(406, 5);
             button1.Name = "button1";
-            button1.Size = new Size(118, 29);
+            button1.Size = new Size(78, 29);
             button1.TabIndex = 1;
             button1.Text = "不记得了";
             button1.UseVisualStyleBackColor = true;
