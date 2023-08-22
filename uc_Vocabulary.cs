@@ -29,18 +29,17 @@ namespace StudyEnglish
 
         public void LoadData()
         {
-            if (Word != null) { this.Tag = Word; lblWord.Text = Word; }
+            if (Word != null) { lblWord.Text = Word; }
             if (WordRank != null) { lblRank.Text = WordRank; }
             if (WordDic != null) { lblDIC.Text = WordDic; }
             if (WordHot != null) { lblHot.Text = WordHot; }
-            if (SearchKey != null) { txtSearch.Text = SearchKey; }
-
+            if (SearchKey != null) { txtSearch.Text = SearchKey; } 
+            if (WordMemo != null) { txtMemo.Text = WordMemo; }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (WordContent != null) { txtWordContent.Text = WordContent; }
-            if (WordMemo != null) { txtMemo.Text = WordMemo; }
         }
         public void ClearText()
         {
@@ -49,7 +48,28 @@ namespace StudyEnglish
         }
         private void btnMemo_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=data.sqlite"))
+                {
+                    connection.Open();
 
+                    var command = connection.CreateCommand();
+                    command.CommandText = $" update Top5000Vocabulary set Memo=@Memo where Word='{Word}' ";
+                    command.Parameters.AddWithValue("@Memo", txtMemo.Text.Trim());
+                    int exec = command.ExecuteNonQuery();
+                    if (exec > 0)
+                    {
+                        var vb = this.Tag as Vocabulary;
+                        vb.Memo = txtMemo.Text.Trim();
+                        MessageBox.Show("备注添加成功！","添加备注",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

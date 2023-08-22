@@ -116,23 +116,27 @@ namespace StudyEnglish
                 var vb = vocabularyList[index];
                 for (int i = 0; i < wizardPages.Length; i++)
                 {
+                    uc_Vocabulary uc = wizardPages[i].Controls[0] as uc_Vocabulary;
                     if (index != i)
                     {
-                        uc_Vocabulary uc1 = wizardPages[i].Controls[0] as uc_Vocabulary;
                         wizardPages[i].Visible = false;
-                        uc1.ClearText();
+                        uc.ClearText();
+                    }
+                    else
+                    {
+                        wizardPages[index].Visible = true;
+                        uc.Tag = vb;
+                        uc.Word = vb.Word;
+                        uc.WordContent = vb.WordContent;
+                        uc.WordDic = vb.Leve;
+                        uc.WordHot = vb.Priority.ToString();
+                        uc.WordMemo = vb.Memo;
+                        uc.WordRank = vb.Rank.ToString();
+                        uc.SearchKey = vb.Word;
+                        uc.LoadData();
                     }
                 }
-                wizardPages[index].Visible = true;
-                uc_Vocabulary uc = wizardPages[index].Controls[0] as uc_Vocabulary;
-                uc.Word = vb.Word;
-                uc.WordContent = vb.WordContent;
-                uc.WordDic = vb.Leve;
-                uc.WordHot = vb.Priority.ToString();
-                uc.WordMemo = vb.Memo;
-                uc.WordRank = vb.Rank.ToString();
-                uc.SearchKey = vb.Word;
-                uc.LoadData();
+               
             }
             currentPageIndex = index;
             UpdateNavigationButtons();
