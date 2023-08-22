@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlTop = new Panel();
+            label1 = new Label();
+            comboBox1 = new ComboBox();
             buttonPrevious = new Button();
             buttonNext = new Button();
             pnlMain = new Panel();
@@ -37,13 +39,13 @@
             panel3 = new Panel();
             panel4 = new Panel();
             panel5 = new Panel();
-            comboBox1 = new ComboBox();
             pnlTop.SuspendLayout();
             pnlMain.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTop
             // 
+            pnlTop.Controls.Add(label1);
             pnlTop.Controls.Add(comboBox1);
             pnlTop.Controls.Add(buttonPrevious);
             pnlTop.Controls.Add(buttonNext);
@@ -53,9 +55,29 @@
             pnlTop.Size = new Size(800, 61);
             pnlTop.TabIndex = 0;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(69, 20);
+            label1.TabIndex = 3;
+            label1.Text = "数据源：";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Top5000Vocabulary", "XDFHighSchool" });
+            comboBox1.Location = new Point(87, 23);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 2;
+            comboBox1.Text = "选一个数据源";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // buttonPrevious
             // 
-            buttonPrevious.Location = new Point(549, 12);
+            buttonPrevious.Location = new Point(502, 12);
             buttonPrevious.Name = "buttonPrevious";
             buttonPrevious.Size = new Size(94, 49);
             buttonPrevious.TabIndex = 1;
@@ -65,7 +87,7 @@
             // 
             // buttonNext
             // 
-            buttonNext.Location = new Point(287, 12);
+            buttonNext.Location = new Point(307, 12);
             buttonNext.Name = "buttonNext";
             buttonNext.Size = new Size(78, 49);
             buttonNext.TabIndex = 0;
@@ -131,16 +153,6 @@
             panel5.TabIndex = 1;
             panel5.Visible = false;
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Top5000Vocabulary", "XDFHighSchool" });
-            comboBox1.Location = new Point(45, 19);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 2;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -151,6 +163,7 @@
             Name = "Form1";
             Text = "个人单词本";
             pnlTop.ResumeLayout(false);
+            pnlTop.PerformLayout();
             pnlMain.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -167,5 +180,6 @@
         private Button buttonPrevious;
         private Button buttonNext;
         private ComboBox comboBox1;
+        private Label label1;
     }
 }
