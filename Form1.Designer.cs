@@ -37,12 +37,14 @@
             panel3 = new Panel();
             panel4 = new Panel();
             panel5 = new Panel();
+            comboBox1 = new ComboBox();
             pnlTop.SuspendLayout();
             pnlMain.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTop
             // 
+            pnlTop.Controls.Add(comboBox1);
             pnlTop.Controls.Add(buttonPrevious);
             pnlTop.Controls.Add(buttonNext);
             pnlTop.Dock = DockStyle.Top;
@@ -63,7 +65,7 @@
             // 
             // buttonNext
             // 
-            buttonNext.Location = new Point(114, 12);
+            buttonNext.Location = new Point(287, 12);
             buttonNext.Name = "buttonNext";
             buttonNext.Size = new Size(78, 49);
             buttonNext.TabIndex = 0;
@@ -129,6 +131,16 @@
             panel5.TabIndex = 1;
             panel5.Visible = false;
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Top5000Vocabulary", "XDFHighSchool" });
+            comboBox1.Location = new Point(45, 19);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 2;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -154,5 +166,6 @@
         private Panel panel1;
         private Button buttonPrevious;
         private Button buttonNext;
+        private ComboBox comboBox1;
     }
 }

@@ -20,6 +20,7 @@ namespace StudyEnglish
         public string WordHot { get; set; }
         public string WordDic { get; set; }
         public string SearchKey { get; set; }
+        public string TableName { get; set; } = "Top5000Vocabulary";
 
         public event EventHandler<EventArgs> WordStatusChanged;
         public uc_Vocabulary()
@@ -55,7 +56,7 @@ namespace StudyEnglish
                     connection.Open();
 
                     var command = connection.CreateCommand();
-                    command.CommandText = $" update Top5000Vocabulary set Memo=@Memo where Word='{Word}' ";
+                    command.CommandText = $" update {TableName} set Memo=@Memo where Word='{Word}' ";
                     command.Parameters.AddWithValue("@Memo", txtMemo.Text.Trim());
                     int exec = command.ExecuteNonQuery();
                     if (exec > 0)
@@ -107,7 +108,7 @@ namespace StudyEnglish
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from Top5000Vocabulary where Word  like @skey ";
+                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from {TableName} where Word  like @skey ";
                 command.Parameters.AddWithValue("@skey", "%"+skey+"%");
                 using (var reader = command.ExecuteReader())
                 {

@@ -9,7 +9,7 @@ namespace StudyEnglish
         private Panel[] wizardPages;
         private int currentPageIndex = 0;
         List<Vocabulary> vocabularyList;
-
+        static string TableName = "Top5000Vocabulary";
         public Form1()
         {
             InitializeComponent();
@@ -72,7 +72,7 @@ namespace StudyEnglish
         private void Uc_Vocabulary_WordStatusChanged(object? sender, EventArgs e)
         {
             LoadData();
-            if(currentPageIndex== wizardPages.Length-1)   ShowWizardPage(0); 
+            if (currentPageIndex == wizardPages.Length - 1) ShowWizardPage(0);
             else
                 ShowWizardPage(currentPageIndex + 1);
         }
@@ -84,7 +84,7 @@ namespace StudyEnglish
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from Top5000Vocabulary where Word not in(SELECT Word from StudyLog) ORDER by rank LIMIT 0,5 ";
+                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from {TableName} where Word not in(SELECT Word from StudyLog) ORDER by rank LIMIT 0,5 ";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -126,17 +126,18 @@ namespace StudyEnglish
                     {
                         wizardPages[index].Visible = true;
                         uc.Tag = vb;
+                        uc.TableName = TableName;
                         uc.Word = vb.Word;
                         uc.WordContent = vb.WordContent;
                         uc.WordDic = vb.Leve;
                         uc.WordHot = vb.Priority.ToString();
                         uc.WordMemo = vb.Memo;
                         uc.WordRank = vb.Rank.ToString();
-                        uc.SearchKey = vb.Word;
+                        uc.SearchKey = vb.Word.Trim().Split(' ')[0];
                         uc.LoadData();
                     }
                 }
-               
+
             }
             currentPageIndex = index;
             UpdateNavigationButtons();
@@ -161,6 +162,12 @@ namespace StudyEnglish
             {
                 ShowWizardPage(currentPageIndex - 1);
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TableName= this.comboBox1.SelectedItem.ToString();
+            this.LoadData();
         }
     }
 }
