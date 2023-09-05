@@ -42,6 +42,7 @@
             btnMemo = new Button();
             txtMemo = new RichTextBox();
             panel3 = new Panel();
+            btnAddWrdBook = new Button();
             panel4 = new Panel();
             btnSearch = new Button();
             txtSearch = new TextBox();
@@ -189,6 +190,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(btnAddWrdBook);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(button2);
             panel3.Controls.Add(button1);
@@ -198,6 +200,17 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(701, 46);
             panel3.TabIndex = 2;
+            // 
+            // btnAddWrdBook
+            // 
+            btnAddWrdBook.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAddWrdBook.Location = new Point(199, 7);
+            btnAddWrdBook.Name = "btnAddWrdBook";
+            btnAddWrdBook.Size = new Size(117, 29);
+            btnAddWrdBook.TabIndex = 4;
+            btnAddWrdBook.Text = "添加到生词本";
+            btnAddWrdBook.UseVisualStyleBackColor = true;
+            btnAddWrdBook.Click += btnAddWrdBook_Click;
             // 
             // panel4
             // 
@@ -231,9 +244,9 @@
             // button2
             // 
             button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(322, 5);
+            button2.Location = new Point(325, 5);
             button2.Name = "button2";
-            button2.Size = new Size(78, 29);
+            button2.Size = new Size(64, 29);
             button2.TabIndex = 2;
             button2.Text = "记住了";
             button2.UseVisualStyleBackColor = true;
@@ -302,5 +315,6 @@
         private Button btnSearch;
         private TextBox txtSearch;
         private Panel panel4;
+        private Button btnAddWrdBook;
     }
 }

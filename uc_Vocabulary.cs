@@ -128,5 +128,31 @@ namespace StudyEnglish
         {
 
         }
+
+        private void btnAddWrdBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=data.sqlite"))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText = $" insert into  VocabularyBook(Word,CreatOn,LastStudyTime,StudyTimes) values " +
+                                          $" (@Word,'{DateTime.Now}','{DateTime.Now}',0)";
+                    command.Parameters.AddWithValue("@Word", Word);
+                    int exec = command.ExecuteNonQuery();
+                    if (exec > 0)
+                    {
+                        if (WordStatusChanged != null)
+                            WordStatusChanged(this, new EventArgs());
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
     }
 }

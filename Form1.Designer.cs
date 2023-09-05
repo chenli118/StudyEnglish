@@ -52,27 +52,23 @@
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(800, 61);
+            pnlTop.Size = new Size(1195, 61);
             pnlTop.TabIndex = 0;
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 26);
+            label1.Location = new Point(36, 15);
             label1.Name = "label1";
-            label1.Size = new Size(69, 20);
-            label1.TabIndex = 3;
-            label1.Text = "数据源：";
+            label1.Size = new Size(100, 23);
+            label1.TabIndex = 0;
             // 
             // comboBox1
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Top5000Vocabulary", "XDFHighSchool" });
-            comboBox1.Location = new Point(87, 23);
+            comboBox1.Items.AddRange(new object[] { "Top5000Vocabulary", "XDFHighSchool", "NewCentury202010", "OxfordV10" });
+            comboBox1.Location = new Point(163, 15);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 2;
-            comboBox1.Text = "选一个数据源";
+            comboBox1.Size = new Size(121, 28);
+            comboBox1.TabIndex = 1;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // buttonPrevious
@@ -105,7 +101,7 @@
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 61);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(800, 389);
+            pnlMain.Size = new Size(1195, 580);
             pnlMain.TabIndex = 1;
             // 
             // panel1
@@ -113,7 +109,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 389);
+            panel1.Size = new Size(1195, 580);
             panel1.TabIndex = 0;
             panel1.Visible = false;
             // 
@@ -122,7 +118,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(800, 389);
+            panel2.Size = new Size(1195, 580);
             panel2.TabIndex = 1;
             panel2.Visible = false;
             // 
@@ -131,7 +127,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(800, 389);
+            panel3.Size = new Size(1195, 580);
             panel3.TabIndex = 1;
             panel3.Visible = false;
             // 
@@ -140,7 +136,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(800, 389);
+            panel4.Size = new Size(1195, 580);
             panel4.TabIndex = 1;
             panel4.Visible = false;
             // 
@@ -149,7 +145,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(800, 389);
+            panel5.Size = new Size(1195, 580);
             panel5.TabIndex = 1;
             panel5.Visible = false;
             // 
@@ -157,13 +153,12 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1195, 641);
             Controls.Add(pnlMain);
             Controls.Add(pnlTop);
             Name = "Form1";
             Text = "个人单词本";
             pnlTop.ResumeLayout(false);
-            pnlTop.PerformLayout();
             pnlMain.ResumeLayout(false);
             ResumeLayout(false);
         }

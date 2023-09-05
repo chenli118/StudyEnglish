@@ -1,6 +1,7 @@
 
 using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace StudyEnglish
 {
@@ -168,6 +169,53 @@ namespace StudyEnglish
         {
             TableName = this.comboBox1.SelectedItem.ToString();
             this.LoadData();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string filePath = @"D:\Downloads\新世纪英汉大词典\新世纪英汉大词典.txt";
+            string prefix = "<link href=\"ncecd.css\" rel=\"stylesheet\"/><span class=\"header\">";
+            using (StreamReader sr = new StreamReader(filePath, System.Text.Encoding.UTF8))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (!line.StartsWith(prefix)) continue;
+                    string wordP = @"<span class=""header"">$P<\/span>";
+                    string pattern = @"<span class=""header"">([^<]+)<\/span>";
+                    Match match = Regex.Match(line, pattern);
+                    if (match.Success)
+                    {
+                        string word = match.Groups[1].Value;
+                        if (Regex.IsMatch(word, @"\d")) continue;
+
+                        string pre = prefix + word + "</span>";
+                        string strippedHtml = Regex.Replace(line.Substring(pre.Length), "<.*?>", "").Replace("&lt;", " ").Replace("&gt;", " ").Replace("/", " ");
+                        Console.WriteLine(strippedHtml);
+                        try
+                        {
+                            using (var connection = new SqliteConnection("Data Source=data.sqlite"))
+                            {
+                                connection.Open();
+
+                                var command = connection.CreateCommand();
+                                command.CommandText = $" insert into  NewCentury202010(Word,WordContent,Leve,Priority) values " +
+                                                      $" (@Word,@WordContent,'AZ',3)";
+                                command.Parameters.AddWithValue("@Word", word);
+                                command.Parameters.AddWithValue("@WordContent", strippedHtml);
+                                int exec = command.ExecuteNonQuery();
+                                if (exec > 0) { System.Diagnostics.Debug.WriteLine($"======{word} inserted======="); }
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message);
+                        }
+                    }
+
+                }
+                sr.Close();
+            }
         }
     }
 }
