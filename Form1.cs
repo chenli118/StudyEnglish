@@ -168,7 +168,7 @@ namespace StudyEnglish
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             TableName = this.comboBox1.SelectedItem.ToString();
-            this.LoadData();
+            ShowWizardPage(comboBox1.SelectedIndex);
         }
 
         private void button1_Click(object sender, EventArgs e)
