@@ -107,20 +107,46 @@ namespace StudyEnglish
             {
                 connection.Open();
 
+                // 第一次查询: 使用 Word LIKE
                 var command = connection.CreateCommand();
-                command.CommandText = $" SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo from {TableName} where Word  like @skey ";
+                command.CommandText = $"SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo FROM {TableName} WHERE Word LIKE @skey";
                 command.Parameters.AddWithValue("@skey", "%" + skey + "%");
+
+                bool hasResults = false;
+
                 using (var reader = command.ExecuteReader())
                 {
-                    txtWordContent.Clear();
-                    while (reader.Read())
+                    if (reader.HasRows)  // 判断是否有结果
                     {
-                        txtWordContent.Text += reader.GetString(1) + " : " + reader.GetString(2);
-                        txtWordContent.Text += System.Environment.NewLine;
+                        hasResults = true;
+                        while (reader.Read())
+                        {
+                            txtWordContent.Clear();
+                            txtWordContent.Text += reader.GetString(1) + " : " + reader.GetString(2);
+                            txtWordContent.Text += System.Environment.NewLine;
+                        }
                     }
                     reader.Close();
                 }
+
+                // 如果没有结果，则执行第二次查询: 使用 WordContent LIKE
+                if (!hasResults)
+                {
+                    command.CommandText = $"SELECT rank,Word,WordContent,Leve, IFNULL(Priority,5) as Priority,Repetition,LastTimestamp,Status,Memo FROM {TableName} WHERE WordContent LIKE @skey";
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        txtWordContent.Clear();  // 清空旧内容
+                        while (reader.Read())
+                        {
+                            txtWordContent.Text += reader.GetString(1) + " : " + reader.GetString(2);
+                            txtWordContent.Text += System.Environment.NewLine;
+                        }
+                        reader.Close();
+                    }
+                }
             }
+
 
         }
 
